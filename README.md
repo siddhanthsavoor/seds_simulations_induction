@@ -1,1 +1,8 @@
 # seds_simulations_induction
+
+# Question 1. A fast enough ball can end up outside the arena without the wall bounce ever being detected. Why does the detection fail, and which of ∆t, |v|, ρ, R and g decide whether it happens?
+# - In this case the detection fails because if the ball is moving extremely fast, the whole ball itself may be outside the arena without any part of it intersecting with the wall after a time step Δt.
+# - Out of ∆t, |v|, ρ, R and g the parameters determining whether the ball "tunnels" through the wall or not are ∆t, |v|, ρ and R only. The distance a ball traverses in a single step is given by |v|∆t, thus an increase in either of the 2 quantities leads to a larger single step of the ball. For the ball to be considered to be outside the arena, its centre must be at a distance R + ρ from the centre of the arena. Thus, if a single step of the ball leads it to phase through the wall, i.e. |v|∆t > 2(R + ρ), then also it leads to the same issue. g does not affect the single-step failure even though it changes the velocity vector over time. This is because while programming, we deal with single discrete steps and not continuous steps.
+
+# Question 2. Set ew = 1, so that no energy is lost at a bounce, and let the ball run for a few thousand steps. Does the peak height stay put, creep upward, or decay? Gravity and the bounce rule are the only things acting, so if it changes at all, where is that energy coming from?
+# - Ideally the peak height should stay perfectly the same, however this is not the case in programming. This happens due to accumulation of tiny errors due to the Euler Method of integration used in the code. This causes the energy of the ball to either blow up or diwndle down over time.
